@@ -9,11 +9,14 @@ subData <- subData[ ,!(names(subData) %in% c("Date","Time"))]
 subData <- cbind(dateTime, subData)
 subData$dateTime <- as.POSIXct(dateTime)
 
+#plot 1
 hist(subData$Global_active_power, main="Global Active Power", xlab = "Global Active Power (kilowatts)", col="red")
 
-plot(t$Global_active_power~t$dateTime, type="l", ylab="Global Active Power (kilowatts)", xlab="")
+#plot 2
+plot(subData$Global_active_power~subData$dateTime, type="l", ylab="Global Active Power (kilowatts)", xlab="")
 
-with(t, {
+#plot 3
+with(subData, {
   plot(Sub_metering_1~dateTime, type="l",
        ylab="Global Active Power (kilowatts)", xlab="")
   lines(Sub_metering_2~dateTime,col='Red')
@@ -22,9 +25,9 @@ with(t, {
 legend("topright", col=c("black", "red", "blue"), lwd=c(1,1,1), 
        c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"))
 
-
+#plot 4
 par(mfrow=c(2,2), mar=c(4,4,2,1), oma=c(0,0,2,0))
-with(t, {
+with(subData, {
   plot(Global_active_power~dateTime, type="l", 
        ylab="Global Active Power (kilowatts)", xlab="")
   plot(Voltage~dateTime, type="l", 
@@ -38,4 +41,3 @@ with(t, {
   plot(Global_reactive_power~dateTime, type="l", 
        ylab="Global Rective Power (kilowatts)",xlab="")
 })
-
